@@ -17,19 +17,38 @@ package com.aptyr.clonegithubtofirebase.presenter.login
  */
 
 import android.content.Intent
+import android.util.Log
 import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
 import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractorImpl
 import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
 import com.aptyr.clonegithubtofirebase.view.login.LoginView
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.firebase.auth.FirebaseUser
+import rx.Observer
 
 class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
 
     override val googleApiClient: GoogleApiClient?
         get() = loginInteractor.googleApiClient
 
-    private val loginInteractor = LoginInteractorImpl(this)
+    private val loginInteractor = LoginInteractorImpl()
+
+    private var observer: Observer<FirebaseUser?> = object : Observer<FirebaseUser?> {
+        override fun onCompleted() {
+            Log.d("observer", "onComplete")
+
+        }
+
+        override fun onError(e: Throwable) {
+            Log.d("observer", "error ")
+
+        }
+
+        override fun onNext(firebaseUser: FirebaseUser?) {
+            Log.d("observer", "next " + firebaseUser?.displayName)
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode === FlowController.instance.RC_GOOGLE_SIGN_IN) {
@@ -48,10 +67,12 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
     }
 
     override fun stop() {
-        loginInteractor.start()
+        loginInteractor.stop()
+        loginInteractor.unsubscribe()
     }
 
     override fun start() {
-        loginInteractor.stop()
+        loginInteractor.start()
+        loginInteractor.subscribe(observer)
     }
 }
