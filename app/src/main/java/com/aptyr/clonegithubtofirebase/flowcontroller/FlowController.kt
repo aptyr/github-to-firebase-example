@@ -16,7 +16,10 @@ package com.aptyr.clonegithubtofirebase.flowcontroller
  * limitations under the License.
  */
 
+import android.content.Context
+import android.content.Intent
 import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
+import com.aptyr.clonegithubtofirebase.view.users.FirebaseUsersActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 
@@ -24,15 +27,22 @@ class FlowController private constructor() {
 
     val RC_GOOGLE_SIGN_IN = 1
 
-    private object Holder { val INSTANCE = FlowController() }
+    private object Holder {
+        val INSTANCE = FlowController()
+    }
 
     companion object {
         val instance: FlowController by lazy { Holder.INSTANCE }
     }
 
-    fun googleSignInView(context: LoginActivity, googleApiClient: GoogleApiClient?){
+    fun googleSignInView(context: LoginActivity, googleApiClient: GoogleApiClient?) {
         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
         context.startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
+    }
+
+    fun firebaseUsersView(context: Context) {
+        val intent = Intent(context, FirebaseUsersActivity::class.java)
+        context.startActivity(intent)
     }
 
 }

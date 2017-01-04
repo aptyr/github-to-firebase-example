@@ -70,6 +70,8 @@ class LoginActivity : BaseActivity(), LoginView {
         greeting.visibility = View.VISIBLE
         viewModel.avatar(avatar)
         greeting.text = viewModel.greet
+
+        FlowController.instance.firebaseUsersView(this)
     }
 
     override fun signedOut() {

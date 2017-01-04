@@ -22,11 +22,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 
-class AuthProvider private constructor(val activity: LoginActivity, listener: GoogleApiClient.OnConnectionFailedListener?) {
+class AuthProvider private constructor(activity: LoginActivity, listener: GoogleApiClient.OnConnectionFailedListener?) {
 
 
     private val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("OAUTH CLIENT ID")
+            .requestIdToken("106396675780-r2hve0bhf5o974ni0ehqqtlfvu260nph.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -36,9 +36,6 @@ class AuthProvider private constructor(val activity: LoginActivity, listener: Go
             .build()
 
     val firebaseAuth = FirebaseAuth.getInstance()
-
-    fun auth(){
-    }
 
 
     private constructor(builder: Builder) : this(builder.activity, builder.listener)

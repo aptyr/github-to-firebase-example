@@ -1,4 +1,4 @@
-package com.aptyr.clonegithubtofirebase.view
+package com.aptyr.clonegithubtofirebase.view.users
 
 /**
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
@@ -16,7 +16,20 @@ package com.aptyr.clonegithubtofirebase.view
  * limitations under the License.
  */
 
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
-class UsersActivity : BaseActivity() {
+import com.aptyr.clonegithubtofirebase.R
+import kotlinx.android.synthetic.main.activity_firebase_users.*
+
+class FirebaseUsersActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_firebase_users)
+        setSupportActionBar(toolbar)
+
+
+    }
 
 }

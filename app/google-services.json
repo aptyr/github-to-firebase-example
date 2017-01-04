@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "106396675780",
+    "firebase_url": "https://github-to-firebase.firebaseio.com",
+    "project_id": "github-to-firebase",
+    "storage_bucket": "github-to-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106396675780:android:a17627363677509d",
+        "android_client_info": {
+          "package_name": "com.aptyr.clonegithubtofirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106396675780-r2hve0bhf5o974ni0ehqqtlfvu260nph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7MidJ0SoIHvs-gMLBe0Pzp660AsjBB7Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,7 +17,6 @@ package com.aptyr.clonegithubtofirebase.presenter.login
  */
 
 import android.content.Intent
-import android.util.Log
 import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
 import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractorImpl
 import com.aptyr.clonegithubtofirebase.view.login.LoginActivity

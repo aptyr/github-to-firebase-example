@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Clone github to firebase</string>
+    <string name="title_activity_firebase_users">Users</string>
 </resources>
