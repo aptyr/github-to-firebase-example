@@ -18,12 +18,15 @@ package com.aptyr.clonegithubtofirebase.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import com.aptyr.clonegithubtofirebase.R
 import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
 import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenter
 import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenterImpl
 import com.aptyr.clonegithubtofirebase.view.BaseActivity
+import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
 
 class LoginActivity : BaseActivity(), LoginView {
 
@@ -51,5 +54,27 @@ class LoginActivity : BaseActivity(), LoginView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         presenter.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun signInFail() {
+        Toast.makeText(this, "Can't sign in user.",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun authFail() {
+        Toast.makeText(this, "Can't authenticate in user.",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun signedIn(viewModel: LoginViewModel) {
+        signInButton.visibility = View.GONE
+        avatar.visibility = View.VISIBLE
+        greeting.visibility = View.VISIBLE
+        viewModel.avatar(avatar)
+        greeting.text = viewModel.greet
+    }
+
+    override fun signedOut() {
+        signInButton.visibility = View.VISIBLE
+        avatar.visibility = View.GONE
+        greeting.visibility = View.GONE
     }
 }

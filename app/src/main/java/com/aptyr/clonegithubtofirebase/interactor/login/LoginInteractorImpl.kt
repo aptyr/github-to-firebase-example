@@ -17,9 +17,7 @@ package com.aptyr.clonegithubtofirebase.interactor.login
  */
 
 import android.app.Activity
-import android.util.Log
 import com.aptyr.clonegithubtofirebase.data.network.firebase.auth.AuthProvider
-import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenter
 import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.ConnectionResult
@@ -66,17 +64,15 @@ class LoginInteractorImpl: LoginInteractor, GoogleApiClient.OnConnectionFailedLi
     }
 
     override fun start() {
-        Log.d("onStartInteractor", " " + authProvider?.firebaseAuth?.currentUser?.photoUrl)
         authProvider?.firebaseAuth?.addAuthStateListener(this)
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        authSubject.onError(Exception("blad polaczenia"))
+        authSubject.onError(Exception("Conn err"))
     }
 
     override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
         authSubject.onNext(firebaseAuth.currentUser)
-        authSubject.onCompleted()
     }
 
     override fun subscribe(observer: Observer<FirebaseUser?>) {

@@ -1,4 +1,4 @@
-package com.aptyr.clonegithubtofirebase.view.login
+package com.aptyr.clonegithubtofirebase.viewmodel
 
 /**
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
@@ -16,18 +16,14 @@ package com.aptyr.clonegithubtofirebase.view.login
  * limitations under the License.
  */
 
-import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenter
-import com.aptyr.clonegithubtofirebase.view.BaseView
-import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
+import com.facebook.drawee.view.SimpleDraweeView
+import com.google.firebase.auth.FirebaseUser
 
-interface LoginView : BaseView<LoginPresenter> {
+class LoginViewModel(private val firebaseUser: FirebaseUser) {
 
-    fun signInFail()
+    val greet = "Hello, ${firebaseUser.displayName}."
 
-    fun authFail()
-
-    fun signedIn(viewModel: LoginViewModel)
-
-    fun signedOut()
-
+    fun <T : SimpleDraweeView> avatar(view: T) {
+        view.setImageURI(firebaseUser.photoUrl)
+    }
 }

@@ -22,6 +22,7 @@ import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
 import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractorImpl
 import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
 import com.aptyr.clonegithubtofirebase.view.login.LoginView
+import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseUser
@@ -36,17 +37,15 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
 
     private var observer: Observer<FirebaseUser?> = object : Observer<FirebaseUser?> {
         override fun onCompleted() {
-            Log.d("observer", "onComplete")
 
         }
 
         override fun onError(e: Throwable) {
-            Log.d("observer", "error ")
-
+            view.authFail()
         }
 
         override fun onNext(firebaseUser: FirebaseUser?) {
-            Log.d("observer", "next " + firebaseUser?.displayName)
+            firebaseUser?.let { view.signedIn(LoginViewModel(it)) } ?: view.signedOut()
         }
     }
 
@@ -57,7 +56,7 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
                 val account = result.signInAccount
                 loginInteractor.auth(account!!)
             } else {
-
+                view.signInFail()
             }
         }
     }
