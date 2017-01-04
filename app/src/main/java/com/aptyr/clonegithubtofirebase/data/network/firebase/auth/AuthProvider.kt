@@ -26,7 +26,7 @@ class AuthProvider private constructor(activity: LoginActivity, listener: Google
 
 
     private val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("106396675780-r2hve0bhf5o974ni0ehqqtlfvu260nph.apps.googleusercontent.com")
+            .requestIdToken("CLIENTKEY")
             .requestEmail()
             .build()
 
