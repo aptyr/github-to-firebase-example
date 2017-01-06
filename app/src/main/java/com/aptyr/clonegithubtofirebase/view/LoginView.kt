@@ -1,4 +1,4 @@
-package com.aptyr.clonegithubtofirebase.presenter.login
+package com.aptyr.clonegithubtofirebase.view
 
 /**
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
@@ -16,18 +16,20 @@ package com.aptyr.clonegithubtofirebase.presenter.login
  * limitations under the License.
  */
 
-import android.content.Intent
-import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractor
-import com.aptyr.clonegithubtofirebase.presenter.BasePresenter
-import com.aptyr.clonegithubtofirebase.ui.LoginActivity
-import com.google.android.gms.common.api.GoogleApiClient
+import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenter
+import com.aptyr.clonegithubtofirebase.view.BaseView
+import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
 
-interface LoginPresenter : BasePresenter<LoginInteractor> {
+interface LoginView : BaseView<LoginPresenter> {
 
-    val googleApiClient: GoogleApiClient?
+    fun signInFail()
 
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    fun authFail()
 
-    fun activity(activity: LoginActivity)
+    fun signedIn(viewModel: LoginViewModel)
+
+    fun signedOut()
+
+    fun progressView(visibility: Int)
 
 }

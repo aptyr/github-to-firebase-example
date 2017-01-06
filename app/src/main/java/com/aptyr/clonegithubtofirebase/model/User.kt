@@ -16,14 +16,36 @@ package com.aptyr.clonegithubtofirebase.model
  * limitations under the License.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import paperparcel.PaperParcel
 import paperparcel.PaperParcelable
+import java.util.*
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 
 @PaperParcel
-data class User(
-        val id: Long
-) : PaperParcelable {
+data class User(@JsonProperty("login")
+                val login: String,
+                @JsonProperty("id")
+                val id: String,
+                @JsonProperty("avatar_url")
+                val avatarUrl: String,
+                @JsonProperty("name")
+                var name: String? = null,
+                @JsonProperty("email")
+                var email: String? = null,
+                @JsonProperty("public_repos")
+                var repos: Int? = null) : PaperParcelable {
+
+
     companion object {
         @JvmField val CREATOR = PaperParcelUser.CREATOR
+    }
+
+    override fun toString(): String {
+        return "$id, $login, $name"
     }
 }

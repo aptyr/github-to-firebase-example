@@ -1,4 +1,4 @@
-package com.aptyr.clonegithubtofirebase.view.login
+package com.aptyr.clonegithubtofirebase.ui
 
 /**
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
@@ -25,7 +25,8 @@ import com.aptyr.clonegithubtofirebase.R
 import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
 import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenter
 import com.aptyr.clonegithubtofirebase.presenter.login.LoginPresenterImpl
-import com.aptyr.clonegithubtofirebase.view.BaseActivity
+import com.aptyr.clonegithubtofirebase.ui.BaseActivity
+import com.aptyr.clonegithubtofirebase.view.LoginView
 import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
 
 class LoginActivity : BaseActivity(), LoginView {
@@ -57,11 +58,11 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun signInFail() {
-        Toast.makeText(this, "Can't sign in user.",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Can't sign in user.", Toast.LENGTH_SHORT).show()
     }
 
     override fun authFail() {
-        Toast.makeText(this, "Can't authenticate in user.",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Can't authenticate in user.", Toast.LENGTH_SHORT).show()
     }
 
     override fun signedIn(viewModel: LoginViewModel) {
@@ -78,5 +79,9 @@ class LoginActivity : BaseActivity(), LoginView {
         signInButton.visibility = View.VISIBLE
         avatar.visibility = View.GONE
         greeting.visibility = View.GONE
+    }
+
+    override fun progressView(visibility: Int) {
+        progressView.visibility = visibility
     }
 }

@@ -18,8 +18,9 @@ package com.aptyr.clonegithubtofirebase.flowcontroller
 
 import android.content.Context
 import android.content.Intent
-import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
-import com.aptyr.clonegithubtofirebase.view.users.FirebaseUsersActivity
+import com.aptyr.clonegithubtofirebase.ui.LoginActivity
+import com.aptyr.clonegithubtofirebase.ui.FirebaseUsersActivity
+import com.aptyr.clonegithubtofirebase.ui.GithubUsersActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 
@@ -42,6 +43,11 @@ class FlowController private constructor() {
 
     fun firebaseUsersView(context: Context) {
         val intent = Intent(context, FirebaseUsersActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun githubUsersView(context: Context) {
+        val intent = Intent(context, GithubUsersActivity::class.java)
         context.startActivity(intent)
     }
 

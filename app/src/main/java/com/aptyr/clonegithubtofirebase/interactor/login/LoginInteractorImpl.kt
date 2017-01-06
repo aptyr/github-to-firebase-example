@@ -18,13 +18,16 @@ package com.aptyr.clonegithubtofirebase.interactor.login
 
 import android.app.Activity
 import com.aptyr.clonegithubtofirebase.data.network.firebase.auth.AuthProvider
-import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
+import com.aptyr.clonegithubtofirebase.data.network.firebase.database.DatabaseProvider
+import com.aptyr.clonegithubtofirebase.model.RegisteredUser
+import com.aptyr.clonegithubtofirebase.ui.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseError
 import rx.Observer
 import rx.Subscription
 import rx.subjects.PublishSubject
@@ -34,12 +37,14 @@ class LoginInteractorImpl: LoginInteractor, GoogleApiClient.OnConnectionFailedLi
     override val googleApiClient: GoogleApiClient?
         get() = authProvider?.googleApiClient
 
-
+    private val databaseProvider: DatabaseProvider = DatabaseProvider()
     private var authProvider: AuthProvider? = null
     private var activity: Activity? = null
 
     private var authSubject: PublishSubject<FirebaseUser?> = PublishSubject.create()
     private var subscription: Subscription? = null
+
+    private var firebaseUser: FirebaseUser? = null
 
     override fun activity(activity: LoginActivity) {
         if (authProvider == null) {
@@ -53,7 +58,8 @@ class LoginInteractorImpl: LoginInteractor, GoogleApiClient.OnConnectionFailedLi
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             authProvider?.firebaseAuth?.signInWithCredential(credential)
                     ?.addOnCompleteListener(it) { task ->
-                        authSubject.onNext(task.result.user)
+                        firebaseUser = task.result.user
+                        authSubject.onNext(firebaseUser)
                         authSubject.onCompleted()
                     }
         } ?: authSubject.onError(NullPointerException("Set activity before"))
@@ -86,5 +92,7 @@ class LoginInteractorImpl: LoginInteractor, GoogleApiClient.OnConnectionFailedLi
         }
     }
 
-
+    override fun getRegisteredUser(resultHandler: (RegisteredUser?) -> Unit, errorHandler: ((DatabaseError?) -> Unit)?) {
+        firebaseUser?.let { databaseProvider.getRegisteredUser(it.uid, resultHandler, errorHandler) }
+    }
 }

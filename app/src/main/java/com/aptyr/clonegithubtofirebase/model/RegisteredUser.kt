@@ -1,7 +1,6 @@
-package com.aptyr.clonegithubtofirebase.presenter.users
-
+package com.aptyr.clonegithubtofirebase.model
 /**
- * Copyright (C) 2016 Aptyr (github.com/aptyr)
+ * Copyright (C) 2017 Aptyr (github.com/aptyr)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,5 +15,16 @@ package com.aptyr.clonegithubtofirebase.presenter.users
  * limitations under the License.
  */
 
-class UsersPresenter {
+data class RegisteredUser(val id: String) {
+
+    constructor():this("") {}
+
+    var favIds = mutableListOf<String>()
+
+    val d= "d"
+    val gg = 1
+
+    override fun toString(): String {
+        return "$id  $favIds"
+    }
 }

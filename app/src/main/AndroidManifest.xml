@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.login.LoginActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -17,9 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.users.FirebaseUsersActivity"
+            android:name=".ui.FirebaseUsersActivity"
             android:label="@string/title_activity_firebase_users"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ui.GithubUsersActivity">
         </activity>
     </application>
 

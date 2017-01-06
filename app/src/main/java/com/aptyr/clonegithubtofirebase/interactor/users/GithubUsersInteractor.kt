@@ -1,6 +1,6 @@
-package com.aptyr.clonegithubtofirebase.view
+package com.aptyr.clonegithubtofirebase.interactor.users
 
-/**
+/*
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,11 @@ package com.aptyr.clonegithubtofirebase.view
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.aptyr.clonegithubtofirebase.interactor.BaseInteractor
+import com.aptyr.clonegithubtofirebase.model.User
 
-import android.support.v4.app.FragmentActivity
+interface GithubUsersInteractor : BaseInteractor {
 
-abstract class BaseActivity : FragmentActivity() {
+    fun getUsers(since: Int, resultHandler: (List<User>) -> Unit, errorHandler: ((Throwable) -> Unit)? = null)
+
 }

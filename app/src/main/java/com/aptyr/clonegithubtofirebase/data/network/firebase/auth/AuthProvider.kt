@@ -16,7 +16,7 @@ package com.aptyr.clonegithubtofirebase.data.network.firebase.auth
  * limitations under the License.
  */
 
-import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
+import com.aptyr.clonegithubtofirebase.ui.LoginActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
@@ -26,7 +26,7 @@ class AuthProvider private constructor(activity: LoginActivity, listener: Google
 
 
     private val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("CLIENTKEY")
+            .requestIdToken("106396675780-r2hve0bhf5o974ni0ehqqtlfvu260nph.apps.googleusercontent.com")
             .requestEmail()
             .build()
 

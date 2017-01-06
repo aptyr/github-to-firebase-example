@@ -17,10 +17,14 @@ package com.aptyr.clonegithubtofirebase.presenter.login
  */
 
 import android.content.Intent
+import android.util.Log
+import android.view.View
 import com.aptyr.clonegithubtofirebase.flowcontroller.FlowController
+import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractor
 import com.aptyr.clonegithubtofirebase.interactor.login.LoginInteractorImpl
-import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
-import com.aptyr.clonegithubtofirebase.view.login.LoginView
+import com.aptyr.clonegithubtofirebase.model.RegisteredUser
+import com.aptyr.clonegithubtofirebase.ui.LoginActivity
+import com.aptyr.clonegithubtofirebase.view.LoginView
 import com.aptyr.clonegithubtofirebase.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
@@ -29,22 +33,43 @@ import rx.Observer
 
 class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
 
+    override val interactor: LoginInteractor
+        get() = throw UnsupportedOperationException()
+
     override val googleApiClient: GoogleApiClient?
         get() = loginInteractor.googleApiClient
 
     private val loginInteractor = LoginInteractorImpl()
 
+    private var registeredUser : RegisteredUser? = null
+
     private var observer: Observer<FirebaseUser?> = object : Observer<FirebaseUser?> {
         override fun onCompleted() {
+            loginInteractor.getRegisteredUser({
 
+                view.progressView(View.GONE)
+                Log.d("userhandler", "${it}")
+
+            }, {
+
+                view.progressView(View.GONE)
+                Log.d("errorhandler", "${it}")
+
+            })
         }
 
         override fun onError(e: Throwable) {
             view.authFail()
+            view.progressView(View.GONE)
         }
 
         override fun onNext(firebaseUser: FirebaseUser?) {
-            firebaseUser?.let { view.signedIn(LoginViewModel(it)) } ?: view.signedOut()
+
+            firebaseUser?.let {
+                view.signedIn(LoginViewModel(it))
+              //  registeredUser = RegisteredUser(it.uid)
+
+            } ?: view.signedOut()
         }
     }
 
@@ -54,8 +79,10 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
             if (result.isSuccess) {
                 val account = result.signInAccount
                 loginInteractor.auth(account!!)
+                view.progressView(View.VISIBLE)
             } else {
                 view.signInFail()
+                view.progressView(View.GONE)
             }
         }
     }

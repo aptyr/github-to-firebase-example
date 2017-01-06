@@ -18,6 +18,8 @@ package com.aptyr.clonegithubtofirebase.presenter
 
 interface BasePresenter<out T> {
 
+    val interactor : T
+
     fun start()
 
     fun stop()

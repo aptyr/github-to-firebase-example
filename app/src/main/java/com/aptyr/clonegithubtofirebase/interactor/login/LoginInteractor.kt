@@ -17,10 +17,12 @@ package com.aptyr.clonegithubtofirebase.interactor.login
  */
 
 import com.aptyr.clonegithubtofirebase.interactor.BaseInteractor
-import com.aptyr.clonegithubtofirebase.view.login.LoginActivity
+import com.aptyr.clonegithubtofirebase.model.RegisteredUser
+import com.aptyr.clonegithubtofirebase.ui.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseError
 import rx.Observer
 
 interface LoginInteractor : BaseInteractor{
@@ -34,4 +36,6 @@ interface LoginInteractor : BaseInteractor{
     fun subscribe(subscriber: Observer<FirebaseUser?>)
 
     fun unsubscribe()
+
+    fun getRegisteredUser(resultHandler: (RegisteredUser?) -> Unit, errorHandler: ((DatabaseError?) -> Unit)? = null)
 }

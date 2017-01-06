@@ -1,4 +1,4 @@
-package com.aptyr.clonegithubtofirebase.interactor.users
+package com.aptyr.clonegithubtofirebase.ui
 
 /**
  * Copyright (C) 2016 Aptyr (github.com/aptyr)
@@ -16,5 +16,7 @@ package com.aptyr.clonegithubtofirebase.interactor.users
  * limitations under the License.
  */
 
-class UsersInteractor {
+import android.support.v4.app.FragmentActivity
+
+abstract class BaseActivity : FragmentActivity() {
 }
